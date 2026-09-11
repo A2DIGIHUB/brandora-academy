@@ -85,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "BrandoraX — Africa's outcome-driven digital workforce pipeline. Train. Get placed. Build the future." },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: "/PNG/Icon_colored_BrandoraX.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },

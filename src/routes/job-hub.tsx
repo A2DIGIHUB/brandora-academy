@@ -1,108 +1,193 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { Users, Clock, ArrowRight, CheckCircle2, ShieldCheck, Mail, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/job-hub")({
   head: () => ({
     meta: [
-      { title: "Job Hub — BrandoraX" },
-      { name: "description", content: "Real-time placements, internships and freelance projects connecting BrandoraX talent to startups, SMEs and corporate teams." },
-      { property: "og:title", content: "BrandoraX Job Hub" },
-      { property: "og:description", content: "Hire pre-vetted African digital talent or get placed into your next role." },
+      { title: "Talent Network & Hiring — BrandoraX" },
+      {
+        name: "description",
+        content:
+          "BrandoraX evaluated talent network. Cohort 1 learners in UI/UX, Web Dev, Data Analysis, and Cybersecurity are in training.",
+      },
+      { property: "og:title", content: "Talent Network & Hiring — BrandoraX" },
+      {
+        property: "og:description",
+        content:
+          "Pre-register as an employer partner to access evaluated, project-ready digital graduates.",
+      },
     ],
   }),
   component: JobHubPage,
 });
 
-const learnerOffers = [
-  { t: "Internship Placements", d: "Structured 3–6 month internships with vetted partner companies." },
-  { t: "Apprenticeship Matching", d: "Long-term roles with senior mentorship inside operating teams." },
-  { t: "Freelance Allocation", d: "Paid project work routed through the BrandoraX hub." },
-  { t: "Direct Job Postings", d: "Employer-listed roles with priority access for graduates." },
-];
-
-const employerOffers = [
-  { t: "Pre-Vetted Pipeline", d: "Hire from a continuously trained pool — not a cold résumé pile." },
-  { t: "Project Trial Hires", d: "Run a paid project with a candidate before you commit." },
-  { t: "Custom Corporate Training", d: "Upskill your existing team using BrandoraX curriculum and mentors." },
-  { t: "Placement Success Manager", d: "A dedicated point of contact for every partner organisation." },
-];
-
 function JobHubPage() {
+  const [submitted, setSubmitted] = useState(false);
+  const [companyName, setCompanyName] = useState("");
+  const [email, setEmail] = useState("");
+  const [roles, setRoles] = useState("");
+
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
+        {/* HERO / EMPTY-STATE SCAFFOLD */}
+        <section className="px-6 pt-20 pb-20 border-b border-border">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase mb-6">
+              <Clock className="size-3.5" />
+              Cohort 1 in Active Training • Launching Soon
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tighter leading-[0.98] mb-6">
+              OUR TALENT COMMUNITY IS GROWING.
+            </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
+              We are currently preparing our first cohort of skilled learners in Web Development, UI/UX, Data,
+              and Cybersecurity. Verified student profiles and proof-of-work portfolios will appear here upon cohort completion.
+            </p>
 
-      <section className="px-6 pt-24 pb-24 border-b border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-6">Real-Time Job Hub</div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] text-balance max-w-5xl mb-10">
-            Where trained talent meets real opportunity.
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            BrandoraX's job hub is the live connective tissue between graduates, internal projects and external employers.
-          </p>
-        </div>
-      </section>
-
-      <section className="px-6 py-24">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-px bg-border">
-          <div className="bg-background p-12">
-            <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">For Learners</div>
-            <h2 className="text-3xl font-extrabold tracking-tight mb-8">From cohort to career.</h2>
-            <ul className="space-y-6 mb-10">
-              {learnerOffers.map((o) => (
-                <li key={o.t}>
-                  <div className="font-bold mb-1">{o.t}</div>
-                  <div className="text-sm text-muted-foreground leading-relaxed">{o.d}</div>
-                </li>
-              ))}
-            </ul>
-            <Link to="/academy" className="inline-block border border-foreground/20 px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-foreground hover:text-background transition-colors">
-              Join a Program
-            </Link>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                to="/academy"
+                className="bg-primary text-primary-foreground px-8 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-lg shadow-primary/20"
+              >
+                Explore Learning Tracks
+                <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                to="/talent-pipeline"
+                className="border border-border bg-card px-8 py-4 rounded-md text-sm font-bold uppercase tracking-wider hover:bg-secondary transition-colors"
+              >
+                How We Evaluate Talent
+              </Link>
+            </div>
           </div>
-          <div className="bg-foreground text-background p-12">
-            <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">For Employers</div>
-            <h2 className="text-3xl font-extrabold tracking-tight mb-8">Hire smarter, not slower.</h2>
-            <ul className="space-y-6 mb-10">
-              {employerOffers.map((o) => (
-                <li key={o.t}>
-                  <div className="font-bold mb-1">{o.t}</div>
-                  <div className="text-sm text-background/70 leading-relaxed">{o.d}</div>
-                </li>
-              ))}
-            </ul>
-            <Link to="/contact" className="inline-block bg-primary text-primary-foreground px-6 py-3 text-xs font-bold uppercase tracking-widest">
-              Become a Partner
-            </Link>
+        </section>
+
+        {/* EMPLOYER PRE-REGISTRATION */}
+        <section className="py-24 px-6 bg-secondary/30">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6">
+              <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">
+                For Employers & Startups
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6">
+                Be the first to hire evaluated graduates.
+              </h2>
+              <p className="text-muted-foreground text-base leading-relaxed mb-8">
+                Skip unstructured hiring rounds and résumé fluff. Pre-register your organization to receive priority
+                access to our verified talent directory and customized cohort matching.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="size-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-bold text-sm">Verified Proof-of-Work Portfolios</div>
+                    <div className="text-xs text-muted-foreground">Every candidate has built and shipped real client-grade projects.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="size-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-bold text-sm">Practitioner Evaluated</div>
+                    <div className="text-xs text-muted-foreground">Vetted across technical competency, communication, and deadline discipline.</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Users className="size-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-bold text-sm">Zero Upfront Hiring Fee in Beta</div>
+                    <div className="text-xs text-muted-foreground">Partner with us early to shape custom briefs and interview candidates.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 bg-card border border-border p-8 rounded-xl shadow-lg">
+              {submitted ? (
+                <div className="text-center py-10">
+                  <div className="size-12 rounded-full bg-primary/10 text-primary mx-auto flex items-center justify-center mb-4">
+                    <Sparkles className="size-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Thank You!</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto mb-6">
+                    Your interest has been recorded. Our partnership lead will reach out with early cohort candidate previews.
+                  </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="text-xs text-primary font-bold uppercase tracking-wider hover:underline"
+                  >
+                    Submit another response
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleRegister} className="space-y-4">
+                  <h3 className="text-xl font-bold tracking-tight mb-2">Pre-Register As Employer</h3>
+                  <p className="text-xs text-muted-foreground mb-6">
+                    Get alerted when Cohort 1 graduates become available for internships and full-time placement.
+                  </p>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                      Company / Organization Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
+                      placeholder="e.g. Acme Labs"
+                      className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                      Work Email
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="hiring@company.com"
+                      className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                      Disciplines You Seek to Hire
+                    </label>
+                    <input
+                      type="text"
+                      value={roles}
+                      onChange={(e) => setRoles(e.target.value)}
+                      placeholder="e.g. React Developers, UI/UX Designers"
+                      className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-primary text-primary-foreground py-3 rounded-md text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity mt-2"
+                  >
+                    Join Employer Talent Waitlist
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-24 bg-secondary/40">
-        <div className="max-w-5xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">The Pipeline</div>
-          <h2 className="text-4xl font-extrabold tracking-tighter mb-12">How a learner becomes a hire.</h2>
-          <ol className="space-y-8">
-            {[
-              "Application & specialisation selection",
-              "Structured training and project-based learning",
-              "Performance evaluation and portfolio review",
-              "BrandoraX WorkLab — supervised live projects",
-              "Employer matching, shortlisting and interviews",
-              "Job deployment and ongoing alumni support",
-            ].map((step, i) => (
-              <li key={step} className="grid grid-cols-[60px_1fr] gap-6 items-baseline border-b border-border pb-6">
-                <span className="font-mono text-xs text-primary">STEP {String(i + 1).padStart(2, "0")}</span>
-                <span className="text-xl font-medium">{step}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
+        </section>
       </main>
       <SiteFooter />
     </div>

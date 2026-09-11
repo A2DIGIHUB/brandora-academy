@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TalentPipelineRouteImport } from './routes/talent-pipeline'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ServicesRouteImport } from './routes/services'
 import { Route as JobHubRouteImport } from './routes/job-hub'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -20,6 +19,7 @@ import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademyTrackIdRouteImport } from './routes/academy.$trackId'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 
 const TalentPipelineRoute = TalentPipelineRouteImport.update({
@@ -30,11 +30,6 @@ const TalentPipelineRoute = TalentPipelineRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JobHubRoute = JobHubRouteImport.update({
@@ -76,6 +71,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademyTrackIdRoute = AcademyTrackIdRouteImport.update({
+  id: '/$trackId',
+  path: '/$trackId',
+  getParentRoute: () => AcademyRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -85,43 +85,43 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/academy': typeof AcademyRoute
+  '/academy': typeof AcademyRouteWithChildren
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/job-hub': typeof JobHubRoute
-  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/talent-pipeline': typeof TalentPipelineRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/academy/$trackId': typeof AcademyTrackIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/academy': typeof AcademyRoute
+  '/academy': typeof AcademyRouteWithChildren
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/job-hub': typeof JobHubRoute
-  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/talent-pipeline': typeof TalentPipelineRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/academy/$trackId': typeof AcademyTrackIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
-  '/academy': typeof AcademyRoute
+  '/academy': typeof AcademyRouteWithChildren
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/job-hub': typeof JobHubRoute
-  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/talent-pipeline': typeof TalentPipelineRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/academy/$trackId': typeof AcademyTrackIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -133,10 +133,10 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/job-hub'
-    | '/services'
     | '/sitemap.xml'
     | '/talent-pipeline'
     | '/dashboard'
+    | '/academy/$trackId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -146,10 +146,10 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/job-hub'
-    | '/services'
     | '/sitemap.xml'
     | '/talent-pipeline'
     | '/dashboard'
+    | '/academy/$trackId'
   id:
     | '__root__'
     | '/'
@@ -160,22 +160,21 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/job-hub'
-    | '/services'
     | '/sitemap.xml'
     | '/talent-pipeline'
     | '/_authenticated/dashboard'
+    | '/academy/$trackId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AcademyRoute: typeof AcademyRoute
+  AcademyRoute: typeof AcademyRouteWithChildren
   AuthRoute: typeof AuthRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
   JobHubRoute: typeof JobHubRoute
-  ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TalentPipelineRoute: typeof TalentPipelineRoute
 }
@@ -194,13 +193,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/job-hub': {
@@ -259,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academy/$trackId': {
+      id: '/academy/$trackId'
+      path: '/$trackId'
+      fullPath: '/academy/$trackId'
+      preLoaderRoute: typeof AcademyTrackIdRouteImport
+      parentRoute: typeof AcademyRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -281,16 +280,26 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface AcademyRouteChildren {
+  AcademyTrackIdRoute: typeof AcademyTrackIdRoute
+}
+
+const AcademyRouteChildren: AcademyRouteChildren = {
+  AcademyTrackIdRoute: AcademyTrackIdRoute,
+}
+
+const AcademyRouteWithChildren =
+  AcademyRoute._addFileChildren(AcademyRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
-  AcademyRoute: AcademyRoute,
+  AcademyRoute: AcademyRouteWithChildren,
   AuthRoute: AuthRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
   JobHubRoute: JobHubRoute,
-  ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TalentPipelineRoute: TalentPipelineRoute,
 }
