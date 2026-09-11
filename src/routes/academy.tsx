@@ -1,122 +1,141 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import uiuxImg from "@/assets/program-uiux.jpg";
+import webImg from "@/assets/program-web.jpg";
+import dataImg from "@/assets/program-data.jpg";
 
 export const Route = createFileRoute("/academy")({
   head: () => ({
     meta: [
-      { title: "Academy — Brandora" },
-      { name: "description", content: "Intensive 3, 6 and 12-month tracks in UI/UX, Web Development, Data Analysis, Cybersecurity and Digital Marketing." },
-      { property: "og:title", content: "Brandora Academy" },
-      { property: "og:description", content: "Project-based tracks designed to take you from beginner to job-ready professional." },
+      { title: "Academy — BrandoraX Programs & Tracks" },
+      { name: "description", content: "Six specializations across 3, 6 and 12-month tracks: UI/UX, graphic design, web development, software development, data analysis and cybersecurity." },
+      { property: "og:title", content: "Academy — BrandoraX Programs & Tracks" },
+      { property: "og:description", content: "Project-based training with portfolio development, career readiness and employer matching support." },
     ],
   }),
-  component: AcademyPage,
+  component: Academy,
 });
 
-const programs = [
-  { code: "01", title: "UI/UX Design", desc: "User research, wireframing, prototyping in Figma, and a portfolio of shipped product work." },
-  { code: "02", title: "Web Development", desc: "Full-stack with React, Node.js, databases and cloud deployment patterns." },
-  { code: "03", title: "Data Analysis", desc: "SQL, Python, dashboards, business analytics, and end-to-end data storytelling." },
-  { code: "04", title: "Cybersecurity", desc: "Security fundamentals, network defence, penetration testing basics and SOC workflows." },
-  { code: "05", title: "Digital Marketing", desc: "Performance marketing, SEO, content systems, analytics and campaign execution." },
+const specializations = [
+  { title: "UI/UX Design", img: uiuxImg, desc: "Research, wireframing, prototyping and design systems for shipped products." },
+  { title: "Web Development", img: webImg, desc: "Front-end and full-stack engineering with modern frameworks and deployment." },
+  { title: "Data Analysis", img: dataImg, desc: "SQL, Python, analytics and dashboards that drive real business decisions." },
+  { title: "Graphic Design", img: null, desc: "Brand identity, layout and visual systems for digital and print." },
+  { title: "Software Development", img: null, desc: "Application architecture, APIs, testing and version control in team settings." },
+  { title: "Cybersecurity", img: null, desc: "Security fundamentals, threat analysis, tooling and defensive practice." },
 ];
 
 const tracks = [
-  { dur: "3 Months", title: "Intensive", desc: "Fast-track entry into a single specialisation. Designed for committed beginners." },
-  { dur: "6 Months", title: "Professional", desc: "Deeper specialisation with team projects and an employer-matching capstone." },
-  { dur: "12 Months", title: "Advanced", desc: "Full pipeline experience: training, live agency work, internship and placement." },
+  { name: "3-Month Intensive", tag: "Foundational", points: ["Foundational training", "Core skill development", "Mini projects", "Certification on completion"] },
+  { name: "6-Month Professional", tag: "Intermediate", points: ["Intermediate specialization", "Team project development", "Portfolio development", "Internship eligibility"] },
+  { name: "12-Month Advanced", tag: "Advanced", points: ["Advanced specialization", "Industry-level portfolio", "Real-world problem solving", "Elite pool eligibility"] },
 ];
 
-const includes = [
-  "Project-based learning with weekly reviews",
-  "Portfolio development and case studies",
-  "Career readiness training (CV, interview, communication)",
-  "Live employer matching support",
-  "Lifetime access to the Brandora job board",
+const included = [
+  "Project-based learning",
+  "Portfolio development",
+  "Career readiness training",
+  "Employer matching support",
 ];
 
-function AcademyPage() {
+const admission = [
+  "Complete your registration",
+  "Choose a specialization",
+  "Take a basic assessment test",
+  "Commit to the program rules",
+];
+
+function Academy() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
-
-      <section className="px-6 pt-24 pb-24 border-b border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-6">The Academy</div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-10 text-balance max-w-5xl">
-            Train on what employers are actually hiring for.
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            Five specialisations across three intensities. Every cohort ends with employer-facing projects, not just certificates.
-          </p>
-        </div>
-      </section>
-
-      <section className="px-6 py-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">Specialisations</div>
-          <h2 className="text-4xl font-extrabold tracking-tighter mb-12">Five tracks. One promise: employability.</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-            {programs.map((p) => (
-              <div key={p.code} className="bg-background p-10 hover:bg-secondary/40 transition-colors">
-                <div className="font-mono text-xs text-primary mb-6">({p.code})</div>
-                <h3 className="text-2xl font-bold mb-4 tracking-tight">{p.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
-              </div>
-            ))}
+        <section className="pt-20 pb-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-6">Pillar I</div>
+            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tighter leading-[0.95] max-w-4xl mb-8">
+              LEARN THE SKILL. BUILD THE PROOF.
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mb-10">
+              An outcome-based academy, not a certificate mill. Every track is built backwards from what employers actually hire for.
+            </p>
+            <Link to="/auth" className="inline-block bg-primary text-primary-foreground rounded-md px-8 py-4 text-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+              Apply to a program
+            </Link>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="px-6 py-24 bg-secondary/40">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">Tracks</div>
-          <h2 className="text-4xl font-extrabold tracking-tighter mb-12">Pick your intensity.</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {tracks.map((t, i) => (
-              <div key={t.title} className={`p-10 border ${i === 1 ? "border-primary bg-background" : "border-border bg-background"}`}>
-                <div className="font-mono text-xs text-primary mb-6">{t.dur.toUpperCase()}</div>
-                <h3 className="text-3xl font-extrabold tracking-tight mb-4">{t.title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">{t.desc}</p>
-                {i === 1 && (
-                  <span className="font-mono text-[10px] uppercase tracking-widest bg-primary text-primary-foreground px-3 py-1">Most popular</span>
-                )}
-              </div>
-            ))}
+        <section className="px-6 pb-24">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-extrabold tracking-tighter mb-10">Specializations</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {specializations.map((s) => (
+                <div key={s.title} className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-colors">
+                  {s.img ? (
+                    <img src={s.img} alt={s.title} loading="lazy" width={1024} height={640} className="w-full aspect-[16/10] object-cover" />
+                  ) : (
+                    <div className="w-full aspect-[16/10] bg-primary/10 flex items-center justify-center">
+                      <span className="font-mono text-xs uppercase tracking-[0.3em] text-primary">BrandoraX</span>
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">{s.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="px-6 py-24">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-          <div>
-            <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">What's Included</div>
-            <h2 className="text-4xl font-extrabold tracking-tighter">Every program comes with the full pipeline.</h2>
+        <section className="px-6 py-24 bg-secondary/50">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-extrabold tracking-tighter mb-10">Choose your track</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {tracks.map((t) => (
+                <div key={t.name} className="bg-background border border-border rounded-lg p-8">
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-accent mb-3">{t.tag}</div>
+                  <h3 className="text-xl font-bold mb-6">{t.name}</h3>
+                  <ul className="space-y-3">
+                    {t.points.map((p) => (
+                      <li key={p} className="text-sm text-muted-foreground flex gap-3"><span className="text-primary">—</span>{p}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-          <ul className="space-y-6">
-            {includes.map((it, i) => (
-              <li key={it} className="flex gap-6 border-b border-border pb-6">
-                <span className="font-mono text-xs text-primary mt-1">0{i + 1}</span>
-                <span className="text-lg">{it}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        </section>
 
-      <section className="px-6 py-24 bg-foreground text-background text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-8">
-            Applications open for the next cohort.
-          </h2>
-          <Link to="/contact" className="inline-block bg-primary text-primary-foreground px-10 py-5 text-sm font-bold uppercase tracking-widest">
-            Apply now
-          </Link>
-        </div>
-      </section>
-
+        <section className="px-6 py-24">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+            <div>
+              <h2 className="text-3xl font-extrabold tracking-tighter mb-8">Every program includes</h2>
+              <ul className="space-y-4">
+                {included.map((i) => (
+                  <li key={i} className="flex items-center gap-4 text-base font-medium">
+                    <span className="size-2 rounded-full bg-primary" />{i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-3xl font-extrabold tracking-tighter mb-8">How admission works</h2>
+              <ol className="space-y-4">
+                {admission.map((a, i) => (
+                  <li key={a} className="flex gap-4 text-base">
+                    <span className="font-mono text-primary text-sm pt-1">0{i + 1}</span>
+                    <span className="text-muted-foreground">{a}</span>
+                  </li>
+                ))}
+              </ol>
+              <Link to="/auth" className="mt-10 inline-block bg-foreground text-background rounded-md px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-primary transition-colors">
+                Start your application
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

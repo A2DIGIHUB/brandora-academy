@@ -5,93 +5,77 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community — Brandora" },
-      { name: "description", content: "Free webinars, youth bootcamps, NGO partnerships and skill-orientation programs expanding digital opportunity across Africa." },
-      { property: "og:title", content: "Brandora Community" },
-      { property: "og:description", content: "Educate. Engage. Convert. Transform." },
+      { title: "Community Empowerment — BrandoraX" },
+      { name: "description", content: "Free tech awareness webinars, youth training bootcamps, NGO partnership programs and skill orientation across the continent." },
+      { property: "og:title", content: "Community Empowerment — BrandoraX" },
+      { property: "og:description", content: "Opening the first door to digital skills for people who have never had one." },
     ],
   }),
-  component: CommunityPage,
+  component: Community,
 });
 
-const programs = [
-  { t: "Free Tech Webinars", d: "Weekly live sessions on tech career paths, beginner guides and industry insights." },
-  { t: "Youth Bootcamps", d: "Short-form intensive bootcamps designed to introduce tech to underserved young people." },
-  { t: "NGO Partnerships", d: "Collaborations with NGOs and government agencies to deliver community-scale training." },
-  { t: "Skill Orientation", d: "Entry programs that help newcomers find the right specialisation before committing." },
+const initiatives = [
+  { n: "01", title: "Free tech awareness webinars", desc: "Monthly online sessions introducing digital career paths, tools and what employers look for." },
+  { n: "02", title: "Youth training bootcamps", desc: "Short intensive bootcamps that give young people a hands-on first project in a real toolchain." },
+  { n: "03", title: "NGO partnership programs", desc: "Co-delivered training with non-profits reaching underserved and out-of-school communities." },
+  { n: "04", title: "Skill orientation programs", desc: "Guided sessions that help people identify the specialization that actually fits them." },
 ];
 
-const stages = [
-  { t: "Awareness", d: "Reach people with content, social media and outreach." },
-  { t: "Education", d: "Teach foundational knowledge and clear direction through free content." },
-  { t: "Engagement", d: "Build relationships with the audience inside community channels." },
-  { t: "Conversion", d: "Move motivated learners into structured Academy programs." },
-];
-
-function CommunityPage() {
+function Community() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <main>
+        <section className="pt-20 pb-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-6">Pillar III</div>
+            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tighter leading-[0.95] max-w-4xl mb-8">
+              OPPORTUNITY SHOULDN'T DEPEND ON ACCESS.
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl">
+              Community empowerment is not our marketing arm — it is the top of our funnel and the reason the company exists.
+            </p>
+          </div>
+        </section>
 
-      <section className="px-6 pt-24 pb-24 border-b border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-6">Community Empowerment</div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] text-balance max-w-5xl mb-10">
-            Educate. Engage. Convert. Transform.
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            The community arm is how Brandora reaches people long before they apply — and stays with them long after they're placed.
-          </p>
-        </div>
-      </section>
-
-      <section className="px-6 py-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">Programs</div>
-          <h2 className="text-4xl font-extrabold tracking-tighter mb-12">What we run.</h2>
-          <div className="grid md:grid-cols-2 gap-px bg-border">
-            {programs.map((p, i) => (
-              <div key={p.t} className="bg-background p-10">
-                <div className="font-mono text-xs text-primary mb-6">0{i + 1}</div>
-                <h3 className="text-2xl font-bold tracking-tight mb-4">{p.t}</h3>
-                <p className="text-muted-foreground leading-relaxed">{p.d}</p>
+        <section className="px-6 pb-24">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-px bg-border">
+            {initiatives.map((i) => (
+              <div key={i.n} className="bg-background p-10">
+                <div className="font-mono text-xs text-accent mb-6">{i.n}</div>
+                <h2 className="text-2xl font-bold mb-4 tracking-tight">{i.title}</h2>
+                <p className="text-muted-foreground leading-relaxed">{i.desc}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="px-6 py-24 bg-secondary/40">
-        <div className="max-w-7xl mx-auto">
-          <div className="font-mono text-primary text-xs uppercase tracking-[0.3em] mb-4">The Funnel</div>
-          <h2 className="text-4xl font-extrabold tracking-tighter mb-12">From audience to alumni.</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            {stages.map((s, i) => (
-              <div key={s.t}>
-                <div className="font-mono text-xs text-primary mb-4">STAGE 0{i + 1}</div>
-                <h3 className="text-2xl font-extrabold tracking-tight mb-3">{s.t}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.d}</p>
-              </div>
-            ))}
+        <section className="px-6 py-24 bg-foreground text-background">
+          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl font-extrabold tracking-tighter mb-6">Run a program with us.</h2>
+              <p className="text-lg text-background/70 mb-8 max-w-lg">
+                NGOs, schools, youth groups and community organisations can co-host a webinar, bootcamp or orientation series with BrandoraX.
+              </p>
+              <Link to="/contact" className="inline-block bg-gold text-gold-foreground rounded-md px-8 py-4 text-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+                Propose a partnership
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-px bg-white/10">
+              {[
+                { v: "Free", l: "Webinars & orientation" },
+                { v: "500+", l: "Learners targeted in years 1–2" },
+                { v: "50", l: "Employer partnerships in view" },
+                { v: "Online", l: "First delivery model" },
+              ].map((s) => (
+                <div key={s.l} className="bg-foreground p-8">
+                  <div className="text-3xl font-extrabold tracking-tighter mb-2">{s.v}</div>
+                  <div className="text-[11px] uppercase tracking-widest text-background/60">{s.l}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-24 bg-foreground text-background text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-8">
-            Run an NGO, school or community?
-          </h2>
-          <p className="text-lg text-background/70 mb-10">
-            Partner with us to deliver tech opportunity at scale.
-          </p>
-          <Link to="/contact" className="inline-block bg-primary text-primary-foreground px-10 py-5 text-sm font-bold uppercase tracking-widest">
-            Start a Partnership
-          </Link>
-        </div>
-      </section>
-
+        </section>
       </main>
       <SiteFooter />
     </div>
