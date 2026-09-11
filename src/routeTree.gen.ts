@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TalentPipelineRouteImport } from './routes/talent-pipeline'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as JobHubRouteImport } from './routes/job-hub'
@@ -21,6 +22,11 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 
+const TalentPipelineRoute = TalentPipelineRouteImport.update({
+  id: '/talent-pipeline',
+  path: '/talent-pipeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/job-hub': typeof JobHubRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/talent-pipeline': typeof TalentPipelineRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
 }
 export interface FileRoutesByTo {
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/job-hub': typeof JobHubRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/talent-pipeline': typeof TalentPipelineRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
 }
 export interface FileRoutesById {
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/job-hub': typeof JobHubRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/talent-pipeline': typeof TalentPipelineRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
 }
 export interface FileRouteTypes {
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/job-hub'
     | '/services'
     | '/sitemap.xml'
+    | '/talent-pipeline'
     | '/dashboard'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/job-hub'
     | '/services'
     | '/sitemap.xml'
+    | '/talent-pipeline'
     | '/dashboard'
   id:
     | '__root__'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/job-hub'
     | '/services'
     | '/sitemap.xml'
+    | '/talent-pipeline'
     | '/_authenticated/dashboard'
   fileRoutesById: FileRoutesById
 }
@@ -165,10 +177,18 @@ export interface RootRouteChildren {
   JobHubRoute: typeof JobHubRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TalentPipelineRoute: typeof TalentPipelineRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/talent-pipeline': {
+      id: '/talent-pipeline'
+      path: '/talent-pipeline'
+      fullPath: '/talent-pipeline'
+      preLoaderRoute: typeof TalentPipelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -272,6 +292,7 @@ const rootRouteChildren: RootRouteChildren = {
   JobHubRoute: JobHubRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TalentPipelineRoute: TalentPipelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
